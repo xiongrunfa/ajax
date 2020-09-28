@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+  <input type="button" value='发送请求报文'>
+</body>
+</html>
+<script>
+  // 绑定点击事件
+  document.querySelector('input').onclick = function(){
+      // 创建 对象 异步对象
+      var xhr = new XMLHttpRequest();
+
+      // 请求行 
+      // get请求 数据是拼接在 url中
+      // xxx.php?key=value&key2=value2
+      xhr.open('get','xxx.php?name=jack&skill=painting');
+
+
+      // 注册回调函数
+      // 请求响应回来之后触发
+      xhr.onload = function(){
+        console.log('请求响应回来啦');
+        console.log(xhr.responseText);
+        alert(xhr.responseText);
+      }
+
+
+      // 请求头 setRequestHeader
+      // 参数1 键名
+      // 参数2 值
+      // 目前这个好像没有任何的作用 是否可以省略呢?
+      // get请求 可以省略 设置请求头的操作
+      // xhr.setRequestHeader('heima','goodgoodstudy day day up');
+
+      // 请求主体 发送
+      xhr.send(null);
+  }
+
+
+</script>

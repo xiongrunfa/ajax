@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap 101 Template</title>
+
+  <!-- Bootstrap -->
+  <link href="lib/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+  <style>
+    .message-panel {
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    .message-panel .panel-body {
+      height: 400px;
+      overflow-y: scroll;
+    }
+
+    .panel-footer input {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .message-panel h1 {
+      font-size: 40px;
+      color: yellowgreen;
+    }
+
+    .someOne {
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="message-panel panel panel-default">
+    <div class="panel-heading">
+      <h1 class="panel-title">知心姐姐</h1>
+    </div>
+    <div class="panel-body">
+      <div style='display:none' class="sister media">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object" src="img/hb.jpg" alt="...">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">女神</h4>
+          <p>我去洗澡了</p>
+        </div>
+      </div>
+      <div style='display:none' class="someOne media">
+        <div class="media-body">
+          <h4 class="media-heading">我</h4>
+          <p>请你吃西兰花炒蛋</p>
+        </div>
+        <div class="media-right">
+          <a href="#">
+            <img class="media-object" src="img/self.png" alt="...">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <input class='info' type="text" placeholder="请输入你想跟知心姐姐说的内容">
+      <input class='send btn btn-info btn-lg' type="button" value='发送'>
+    </div>
+  </div>
+</body>
+
+</html>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="lib/js/jquery-1.12.4.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="lib/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  /*
+      1.需求1
+          点击 发送按钮 
+          获取 输入的内容 
+          创建一个 自己的聊天框 添加到页面上
+      2.需求2
+          发送请求获取数据 -- 页面不刷新--ajax
+          数据回来之后解析
+          生成对应的 html结构
+          添加到页面行
+  */
+  $(function () {
+    $('.send').click(function () {
+      // 获取输入的内容
+      var inputMessage = $('.info').val();
+      // 克隆第一个 someOne
+      var $cloneSome = $('.someOne').first().clone();
+
+      // 修改内容
+      $cloneSome.find('p').html(inputMessage);
+
+      // 添加到页面上
+      $cloneSome.appendTo('.panel-body');
+
+      // show出来
+      $cloneSome.show();
+
+      // 需求2
+      //1.创建对象
+      var xhr = new XMLHttpRequest();
+      //2.设置请求行(get请求数据写在url后面)
+      xhr.open('POST', 'http://www.tuling123.com/openapi/api');
+      //3.设置请求头(get请求可以省略,post不发送数据也可以省略)
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      //3.5注册回调函数
+      xhr.onload = function () {
+        console.log(xhr.responseText);
+        // 转化为 js对象
+        var result = JSON.parse(xhr.responseText);
+
+        // 克隆结构
+        var $cloneGirlGod = $('.sister').first().clone();
+        // 修改内容
+        $cloneGirlGod.find('p').html(result.text);
+
+        // 添加到页面上
+        $cloneGirlGod.appendTo('.panel-body');
+        // show出来
+        $cloneGirlGod.show();
+      }
+      // 参数
+      xhr.send('key=e39a340d87da47829c3bee5c4df64203&info=' + inputMessage);
+    })
+  })
+</script>

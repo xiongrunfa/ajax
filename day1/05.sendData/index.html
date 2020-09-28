@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+</head>
+
+<body>
+  <!--  form表单发送数据
+        action 指定提交的 url
+        提交的方式  method
+                get 不设置 默认是 get
+                post
+        表单元素 需要提交的数据
+          使用name属性 进行标记
+            name属性的值 可以随便起
+            但是尽可能起的有意义
+  -->
+  <form action="./getData.php" method="get">
+    <!--  文本框  -->
+    <input name='superStarName' type="text" placeholder="请输入你喜欢的明星">
+     <!--  提交按钮 -->
+    <input type="submit">
+  </form>
+</body>
+
+</html>

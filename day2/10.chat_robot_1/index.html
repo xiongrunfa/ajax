@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <style>
+    body{
+      background: yellowgreen;
+    }
+    ul {
+      width: 400px;
+      border: 1px solid #000;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>聊天机器人_清爽版本</h2>
+  <input type="text">
+  <input type="button" value='发送'>
+  <h3>聊天框</h3>
+  <ul></ul>
+</body>
+
+</html>
+<script>
+    // 点击事件
+    document.querySelector('input[type=button]').onclick = function(){
+      // 创建聊天框
+      var myLi = document.createElement('li');
+      // 设置内容
+      myLi.innerHTML = document.querySelector('input[type=text]').value;
+      myLi.style.backgroundColor ='hotpink';
+      // 添加到页面上
+      document.querySelector('ul').appendChild(myLi);
+
+      // ajax
+      //1.创建对象
+      var xhr = new XMLHttpRequest();
+      //2.设置请求行(get请求数据写在url后面)
+      xhr.open('get','chat.php');
+      //3.设置请求头(get请求可以省略,post不发送数据也可以省略)
+      //3.5注册回调函数
+      xhr.onload = function(){
+        console.log(xhr.responseText);
+        // 创建
+        var herLi = document.createElement('li');
+        // 设置
+        herLi.innerHTML = xhr.responseText;
+        herLi.style.backgroundColor = 'skyblue';
+        // 添加
+        document.querySelector('ul').appendChild(herLi);
+      }
+      //4.请求主体发送(get请求为空，或者写null，post请求数据写在这里，如果没有数据，直接为空或者写null)
+      xhr.send(null);
+    }
+</script>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+</head>
+
+<body>
+  <!--
+        action:提交的 url
+        method:
+              默认就是get 
+        form表单通过get提交数据的本质是
+            在url的后面 拼接上 name = value
+            格式 lol_detail.php?lolHero=提莫
+              在url的后面?key=value
+            如果自己能够拼接url 也能够实现数据的提交
+    -->
+  <h2>英雄查询页面</h2>
+  <form action="./lol_detail.php">
+    <!--输入框  -->
+    <input name='lolHero' type="text" placeholder="请输入你喜欢的英雄">
+    <!-- 提交按钮  -->
+    <input type="submit">
+  </form>
+</body>
+
+</html>

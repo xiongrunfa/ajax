@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="cors跨域请求">
+</body>
+<script>
+    document.querySelector('input').addEventListener('click', function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://192.168.0.104/day4/cors/cors.php');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send(null);
+    })
+</script>
+
+</html>

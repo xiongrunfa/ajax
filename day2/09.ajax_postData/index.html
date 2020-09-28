@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+</head>
+
+<body>
+
+  <h2>ajax发送post请求</h2>
+  <input type="button" value='post请求'>
+
+</body>
+
+</html>
+<script>
+  // 点击事件
+  document.querySelector('input').onclick = function(){
+    //1.创建对象
+    var xhr = new XMLHttpRequest();
+
+    //2.设置请求行(get请求数据写在url后面)
+    xhr.open('post','postData.php');
+
+    //3.设置请求头(get请求可以省略,post不发送数据也可以省略)
+    // 可以在 w3c的 ajax分类中 w3c的 form表单的 enctype中 看到 这个值
+    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+    //3.5注册回调函数
+    xhr.onload = function(){
+      console.log(xhr.responseText);
+    }
+    //4.请求主体发送(get请求为空，或者写null，post请求数据写在这里，如果没有数据，直接为空或者写null)
+    // post请求发送数据 写在send中
+    // key=value&key2=value2
+    xhr.send('name = 西兰花&friend = 鸡蛋');
+  }
+
+</script>

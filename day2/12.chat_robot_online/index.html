@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+    }
+
+    .clearfix::before,
+    .clearfix::after {
+      content: '';
+      visibility: hidden;
+      clear: both;
+      line-height: 0;
+      height: 0;
+      display: block;
+    }
+
+    .clearfix {
+      zoom: 1;
+    }
+
+    .f_l {
+      float: left;
+    }
+
+    .f_r {
+      float: right;
+    }
+
+    .container {
+      margin: 50px auto 0;
+      width: 800px;
+      height: 500px;
+      border: 1px solid skyblue;
+      border-radius: 10px;
+    }
+
+    .message {
+      border-bottom: 1px solid skyblue;
+      height: 400px;
+      overflow-y: scroll;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: all 2s;
+    }
+
+    .control {
+      height: 100px;
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+
+    .inputBox {
+      height: 60px;
+      margin-top: 20px;
+      border-radius: 6px;
+      outline: none;
+      padding: 0;
+      box-sizing: border-box;
+      width: 500px;
+      font-size: 30px;
+      box-shadow: 0 0 3px gray;
+      border: 1px solid #ccc;
+      transition: all .2s;
+      padding-left: 10px;
+    }
+
+    .inputBox:focus {
+      border-color: skyblue;
+      box-shadow: 0 0 3px skyblue;
+    }
+
+    .sendButton {
+      height: 70px;
+      margin-top: 15px;
+      background-color: yellowgreen;
+      width: 150px;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 40px;
+      font-family: '微软雅黑';
+      cursor: pointer;
+    }
+
+    .message>div>a {
+      text-decoration: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: skyblue;
+      text-align: center;
+      line-height: 50px;
+      color: white;
+      font-size: 25px;
+      font-weight: 700;
+      font-family: '微软雅黑';
+    }
+
+    .message>.robot>a {
+      background-color: hotpink;
+    }
+
+    .message>.self>a {
+      background-color: yellowgreen;
+    }
+
+    .message>div {
+      padding: 10px 0;
+    }
+
+    .message>div>p {
+      max-width: 300px;
+      min-height: 28px;
+      margin: 0 10px;
+      padding: 10px 10px;
+      background-color: #ccc;
+      border-radius: 10px;
+      word-break: break-all;
+      position: relative;
+      line-height: 28px;
+      font-weight: 400;
+      font-family: '微软雅黑';
+      color: white;
+      font-size: 20px;
+    }
+
+    .message>.robot>p {
+      background-color: skyblue;
+    }
+
+    .message>.robot>p::before {
+      content: '';
+      position: absolute;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid skyblue;
+      left: -5px;
+      top: 15px;
+    }
+
+    .message>.self>p {
+      color: black;
+    }
+
+    .message>.self>p::before {
+      content: '';
+      position: absolute;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 6px solid #ccc;
+      right: -6px;
+      top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>图灵机器人_在线版本</h1>
+  <div class="container">
+    <div class="message">
+      <div class="robot clearfix">
+        <a href="#" class='f_l'>机</a>
+        <p class='f_l'>我要吃西兰花</p>
+      </div>
+    </div>
+    <div class="control">
+      <input type="text" class='inputBox f_l'>
+      <input type="button" class='sendButton f_r' value='发 送'>
+    </div>
+  </div>
+
+  <!-- 隐藏的 自己聊天框 -->
+  <div id='hidden_self' class="self clearfix" style='display:none'>
+    <a href="#" class="f_r">人</a>
+    <p class="f_r">123213</p>
+  </div>
+</body>
+
+</html>
+
+<!-- 导入jQuery   -->
+<script src="./js/jquery.min-1.72.js"></script>
+
+<script>
+  // 自己的js代码
+  $(function () {
+    $(".sendButton").click(function () {
+      // 创建自己的聊天框
+      // 每次克隆第一个
+      var $cloneSelf = $(".self").first().clone();
+      // 添加到容器中
+      $('.message').append($cloneSelf);
+      $cloneSelf.show();
+      // 获取输入框的内容 设置给克隆的 元素内部的 p标签
+      $cloneSelf.find('p').html($('.inputBox').val());
+
+      // ajax请求
+      //1.创建对象
+      var xhr = new XMLHttpRequest();
+      //2.设置请求行(get请求数据写在url后面)
+      xhr.open('post', 'http://www.tuling123.com/openapi/api');
+      //3.设置请求头(get请求可以省略,post不发送数据也可以省略)
+      xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      //3.5注册回调函数
+      xhr.onload = function () {
+        console.log(xhr.responseText);
+        // 克隆机器人的聊天框
+        var $cloneRobot = $('.robot').first().clone();
+        $cloneRobot.appendTo('.message');
+        $cloneRobot.find('p').html(xhr.responseText);
+      }
+      //4.请求主体发送(get请求为空，或者写null，post请求数据写在这里，如果没有数据，直接为空或者写null)
+      xhr.send('key=e39a340d87da47829c3bee5c4df64203&info='+$(".inputBox").val());
+    })
+  })
+</script>

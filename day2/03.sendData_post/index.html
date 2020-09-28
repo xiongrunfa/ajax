@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<h2>post提交数据</h2>
+<!--
+    post提交数据
+      action属性 提交的url
+      必须设置 method 默认是get
+    表单元素name属性
+    提交按钮
+
+    post
+        1.提交的数据不在url中
+          安全性好一些
+        2.post提交数据 没有长度限制
+          浏览器端只要你想 随意添加
+          服务器可以选择是否接受这么多的数据
+        3.如果要上传文件 必须使用 post
+  -->
+<form action="./postData.php" method="post">
+  <input name='food' type="text" placeholder="你喜欢吃的食物">
+  <br>
+  <input name='doType' type="text" placeholder="爱吃的做法">
+  <input type="submit">
+</form>
+</body>
+</html>

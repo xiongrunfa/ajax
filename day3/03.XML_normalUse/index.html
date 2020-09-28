@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+</head>
+
+<body>
+  <h2>请求xml文件</h2>
+  <input type="button" value='ajax获取XML文件'>
+  <h3></h3>
+</body>
+
+</html>
+<script>
+  // 点击 请求xml
+  document.querySelector('input').onclick = function () {
+    //1.创建异步对象
+    var xhr = new XMLHttpRequest();
+    //2.设置请求行
+    xhr.open('post', 'backXML.php');
+    //3.设置请求头(get请求可以省略)
+    //4.注册状态改变事件
+    xhr.onreadystatechange = function () {
+      //4.1判断状态&请求是否成功并使用数据
+      if (xhr.readyState == 4 && xhr.status == 200) { 
+        // 返回的是 XML 通过responseText 只能够获取到 字符串
+        console.log(xhr.responseText);
+        // 如果返回的是 xml 使用responseXML来获取
+        console.log(xhr.responseXML);
+        // 页面中默认的文档对象
+        console.log(document);
+
+        // 解析 通过responseXML 这个 文档对象 来解析
+        console.log(xhr.responseXML.querySelector('name').innerHTML);
+        console.log(xhr.responseXML.querySelector('age').innerHTML);
+        console.log(xhr.responseXML.querySelector('skill').innerHTML);
+
+        // 获取信息
+        var name = xhr.responseXML.querySelector('name').innerHTML;
+        var age = xhr.responseXML.querySelector('age').innerHTML;
+        var skill = xhr.responseXML.querySelector('skill').innerHTML;
+
+        // 设置给dom元素
+        document.querySelector('h3').innerHTML = name+'--'+age+'--'+skill;
+
+      }
+    }
+    //5.发送请求
+    xhr.send(null);
+  }
+</script>

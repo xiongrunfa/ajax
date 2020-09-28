@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+  <h2>上传文件</h2>
+  <!--
+      提交方式 - post
+      form表单
+      input type = file name属性
+      提交按钮
+      form表单属性
+        enctype 默认值是 application/x-www-form-urlencoded
+                提交文件 multipart/form-data
+    -->
+    <form action="./postFIles.php" method="post" enctype="multipart/form-data">
+      <input type="file" name='icon'>
+      <br>
+      <input type="submit">
+    </form>
+</body>
+</html>

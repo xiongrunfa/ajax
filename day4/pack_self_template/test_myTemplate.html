@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/html" id="template">
+   <ul>
+       <li>{{name}}</li>
+       <li>{{skill}}</li>
+   </ul>
+</script>
+<!-- 引入自己封装的模板引擎 -->
+<script src="./my_template.js"></script>
+<script>
+    var data = {
+        name: "大明",
+        skill: "跳舞"
+    }
+    var objStr = my_template("template", data);
+    console.log(objStr);
+</script>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid-item {
+            width: 200px;
+            background-color: aqua;
+        }
+
+        .grid-item--width2 {
+            width: 400px;
+            background-color: chartreuse;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="grid-item">...</div>
+        <div class="grid-item">...</div>
+        <div class="grid-item">...</div>
+    </div>
+</body>
+<script src="./jquery-1.12.4.js"></script>
+<script src="./masonry.pkgd.min.js"></script>
+<script>
+    $('.grid').masonry({
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: 200
+    });
+</script>
+
+</html>

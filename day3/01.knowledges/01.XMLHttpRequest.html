@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      background-color: skyblue;
+    }
+
+    div:hover {
+      background-color: yellowgreen;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>异步对象</h2>
+  <input type="button" value='ajax请求'>
+  <input type="button" class='lastBtn' value='ajax请求2'>
+  <div></div>
+</body>
+
+</html>
+<script>
+  /*
+            异步 对象
+              同时干很多事情
+            同步
+              一件事一件事的干
+        */
+  document.querySelector('input').onclick = function () {
+    //1.创建异步对象
+    var xhr = new XMLHttpRequest();
+    //2.设置请求行(get请求数据写在url后面)
+    // 使用同步的模式 来发送请求
+    // 参数3 是否使用异步 默认是 true  false(同步)
+    // 同步 请求响应回来之前 什么事都干不了
+    // 基本上 不会使用这个模式 知道有这个选项即可
+    xhr.open('get', 'xxx.php', false);
+    //3.设置请求头(get请求可以省略,post不发送数据也可以省略)
+    //3.5注册回调函数
+    xhr.onload = function () {
+      console.log(xhr.responseText);
+    }
+    //4.请求主体发送(get请求为空，或者写null，post请求数据写在这里，如果没有数据，直接为空或者写null)
+    xhr.send(null);
+  }
+
+  document.querySelector('.lastBtn').onclick = function () {
+    //1.创建异步对象
+    var xhr = new XMLHttpRequest();
+    //2.设置请求行(get请求数据写在url后面)
+    // 使用同步的模式 来发送请求
+    // 参数3 是否使用异步 默认是 true  false(同步)
+    // 同步 请求响应回来之前 什么事都干不了
+    // 基本上 不会使用这个模式 知道有这个选项即可
+    // xhr.open('get', 'xxx1234567890.php', true);
+    xhr.open('get', 'xxx.php', true);
+    //3.设置请求头(get请求可以省略,post不发送数据也可以省略)
+    //3.5注册回调函数
+    // 触发的次数很多  
+    // 状态改变时 会触发
+    xhr.
+    }onreadystatechange = function () {
+      // 只有当 状态码是 4时 采取获取数据
+      console.log(xhr.status);
+      // 判断 响应回来 并且请求的页面存在 采取获取数据
+      if (xhr.readyState == 4&&xhr.status==200) {
+        console.log('我触发了');
+        console.log(xhr.readyState);
+        console.log(xhr.responseText);
+      }
+    //4.请求主体发送(get请求为空，或者写null，post请求数据写在这里，如果没有数据，直接为空或者写null)
+    xhr.send(null);
+  }
+</script>
+<!--
+    补充面试官 叫你手写 ajax
+      尽可能用电脑写 自己的 他们的
+      写哪个都可以
+        onload 面试官追问 什么鬼 
+        还有 onreadystatechange
+      如果要手写 onreadystatechange事件
+  -->

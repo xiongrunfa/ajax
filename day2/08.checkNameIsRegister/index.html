@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+</head>
+
+<body>
+  <h2>用户注册</h2>
+  <h3>状态</h3>
+  <!--  name属性不是必须的 form表单才是必须的  -->
+  <!-- <input type="text" name='userName' placeholder="请输入用户名"> -->
+  <input type="text" placeholder="请输入用户名">
+</body>
+
+</html>
+<script>
+  // 什么时候发送请求?
+  document.querySelector('input').onblur = function () {
+    // 0.修改页面的提示信息
+    document.querySelector('h3').innerHTML = '验证中';
+    //1.创建对象
+    var xhr = new XMLHttpRequest();
+    //2.设置请求行(get请求数据写在url后面)
+    xhr.open('get', 'checkName.php?name='+this.value);
+    //3.设置请求头(get请求可以省略,post不发送数据也可以省略)
+    //3.5注册回调函数
+    xhr.onload = function(){
+      console.log(xhr.responseText);
+      document.querySelector('h2').innerHTML = xhr.responseText;
+      // 修改提示信息
+      document.querySelector('h3').innerHTML = '验证完毕';
+    }
+    //4.请求主体发送(get请求为空，或者写null，post请求数据写在这里，如果没有数据，直接为空或者写null)
+    xhr.send(null);
+  }
+</script>

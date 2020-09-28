@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./ajax.js"></script>
+    <!-- <link rel="stylesheet" href="../backDate/backXML.php"> -->
+</head>
+
+<body>
+    <input class="ajax1" type="button" value="ajax测试1">
+    <input class="xml" type="button" value="xml测试1">
+    <input class="json" type="button" value="json测试1">
+</body>
+<script>
+    document.querySelector('.ajax1').onclick = function () {
+        ajax({
+            type: "get",
+            url: "../backDate/backSendData.php",
+            data: "name=周润发&skill=梭哈",
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    };
+    document.querySelector('.xml').onclick = function () {
+        ajax({
+            type: "post",
+            url: "../backDate/backXML.php",
+            success: function (data) {
+                var name = data.querySelector('name').innerHTML;
+                alert(name);
+            }
+        })
+    };
+    document.querySelector('.json').onclick = function () {
+        ajax({
+            type: "post",
+            url: "../backDate/backJSON.php",
+            success: function (data) {
+                console.log(data.skill);
+            }
+        })
+    }
+</script>
+
+</html>
